@@ -138,6 +138,7 @@ relationshipData =
     oneOf
         [ Json.Decode.map Many (list resourceIdentifier)
         , Json.Decode.map One resourceIdentifier
+        , Json.Decode.null None
         ]
 
 

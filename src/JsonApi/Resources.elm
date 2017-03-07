@@ -204,6 +204,9 @@ getRelationship name (Resource _ object _) =
 extractRelationshipData : Resource -> Relationship -> Result String (OneOrMany Resource)
 extractRelationshipData (Resource relIdentifier _ relatedResources) relationship =
     case relationship.data of
+        None ->
+            Ok None
+
         One relIdentifier ->
             Result.map One (getRelatedResource relatedResources relIdentifier)
 
