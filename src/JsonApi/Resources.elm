@@ -1,6 +1,7 @@
 module JsonApi.Resources
     exposing
         ( id
+        , ressourceType
         , attributes
         , attribute
         , relatedResource
@@ -75,6 +76,11 @@ id : Resource -> String
 id (Resource identifier _ _) =
     identifier.id
 
+{-| Get the string type of a Resource
+-}
+ressourceType : Resource -> String
+ressourceType (Resource identifier _ _) =
+    identifier.resourceType
 
 {-| Serialize the attributes of a Resource. Because the attributes are unstructured,
     you must provide a Json Decoder to convert them into a type that you define.

@@ -54,6 +54,9 @@ resourceChaining =
                 |> Result.toMaybe
                 |> Maybe.withDefault ""
 
+        decodedObjectTypeAttribute =
+            JsonApi.Resources.ressourceType decodedPrimaryResource
+
         relatedCommentResource =
             case JsonApi.Resources.relatedResourceCollection "comments" decodedPrimaryResource of
                 Err string ->
@@ -88,6 +91,9 @@ resourceChaining =
         primaryAttributesAreDecoded =
             \_ -> Expect.equal decodedPrimaryResourceAttribute "JSON API paints my bikeshed!"
 
+        objectTypeIsDecoded =
+            \_ -> Expect.equal decodedObjectTypeAttribute "JSON API paints my bikeshed!"
+
         relationshipAttributesAreDecoded =
             \_ -> Expect.equal relatedCommentResourceAttribute "I like XML better"
 
@@ -98,6 +104,7 @@ resourceChaining =
             [ Test.test "it extracts the primary data attributes from the document" primaryAttributesAreDecoded
             , Test.test "it extracts the relationship attributes" relationshipAttributesAreDecoded
             , Test.test "recursively hydrates relationships" relationshipsAreHydratedRecursively
+            , Test.test "recursively gives object type" objectTypeIsDecoded
             ]
 
 
